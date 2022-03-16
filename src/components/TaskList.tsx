@@ -13,24 +13,27 @@ interface Task {
 export function TaskList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [numberRandom, setNumberRandom] = useState(0)
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
-    const numberRandom = Math.random()
+    const numberRandomic = numberRandom
 
     const titleTask = newTaskTitle
 
-    if (!titleTask.trim()) {
-      return alert("Complete com o nome da tarefa.")
-    }
+    if (!titleTask.trim()) return alert("Complete com o nome da tarefa.")
+
 
     const newTask = {
-      id: numberRandom,
+      id: numberRandomic,
       title: titleTask,
       isComplete: false
     }
 
-    setTasks(previous => [...previous, newTask])
+    setTasks(previous => {
+      setNumberRandom(numberRandom + 1)
+      return [...previous, newTask]
+    })
   }
 
   function handleToggleTaskCompletion(id: number) {
